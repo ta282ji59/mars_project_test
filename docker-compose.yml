@@ -7,6 +7,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ./redace_nginx/conf.d:/etc/nginx/conf.d
+      - ./redace_nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      # -
     depends_on:
       - django
       - jupyter

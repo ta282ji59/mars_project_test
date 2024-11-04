@@ -4,8 +4,8 @@ from jupyterhub.spawner import SimpleLocalProcessSpawner
 # OAuth2 Authenticator
 c.JupyterHub.authenticator_class = 'oauthenticator.generic.GenericOAuthenticator'
 c.GenericOAuthenticator.oauth_callback_url = 'http://192.168.1.53:7010/hub/oauth_callback'
-c.GenericOAuthenticator.client_id = 'GVvlEfK2q69XwpUXdeBHRKnndTcWvE3vtNpa1N84'
-c.GenericOAuthenticator.client_secret = '3eJklkudO3IGIswngxIgN39Gn7nr2OBsxzYA9wHzPDIdcGXhiXPLHLDIrg4bCqwVfeQNirQqYFJGf4VENCcqNbzj3KbgSurU7yqWKkftPKrrAaEEQMWgiCdpzmPHzp4i'
+c.GenericOAuthenticator.client_id = 'jaT2Sr325DsKLpkYs3On2pNdSPKjgBqR5EDucYJH'
+c.GenericOAuthenticator.client_secret = 'DyhSGTG5dXKwagNUfchisF6WdH8GkB6KaGiViBGsFxYgIWTTUjN5UJcYTbLaWma4ozCpUzj2PoYgTldVnXx6pHbWStreJ39oaHU2dV1TS9WExUHySwsPkP0YtqwOjwFX'
 c.GenericOAuthenticator.authorize_url = 'http://192.168.1.53:7001/o/authorize/'
 c.GenericOAuthenticator.token_url = 'http://192.168.1.53:7001/o/token/'
 c.GenericOAuthenticator.userdata_url = 'http://192.168.1.53:7001/userdata/'
@@ -14,7 +14,7 @@ c.GenericOAuthenticator.enable_pkce = False
 
 # ユーザーの許可設定
 c.Authenticator.allow_all = True
-c.Authenticator.create_system_users = True
+# c.Authenticator.create_system_users = True
 
 # データベース設定
 c.JupyterHub.db_url = 'postgresql://{user}:{password}@{host}:{port}/{database}?options=-csearch_path%3Djupyterhub,public'.format(

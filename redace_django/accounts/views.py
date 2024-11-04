@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import requests
+from .forms import CustomUserCreationForm
 
 # ログイン画面の制御関数
 def login_view(request):
@@ -39,14 +40,15 @@ def logout_view(request):
 # サインインの際の画面制御関数
 def signup_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Account created successfully')
+            messages.success(request, 'Create your account perfectly') #login.htmlに送られる文章
             return redirect('login')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'accounts/signup.html', {'form': form})
+
 
 # ログイン後に行ける画面制御関数
 @login_required
@@ -54,5 +56,6 @@ def users_home(request):
     return render(request, 'home.html')
 
 # ログインアウト前に移動する画面制御関数
+@login_required
 def logout_confirm(request):
     return render(request, 'accounts/logout.html')

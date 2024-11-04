@@ -3,3 +3,7 @@ db
 
 
 .env
+*.txt
+?.json
+.DS_Store
+*.pyc
