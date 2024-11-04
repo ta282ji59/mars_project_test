@@ -1,0 +1,125 @@
+services:
+  # Nginx生成コンテナ
+  nginx:
+    build:
+      context: ./redace_nginx
+    container_name: redace_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - django
+      - jupyter
+    networks:
+      redace_network:
+        ipv4_address: 172.16.239.23
+
+  # PostGISデータベース生成コンテナ
+  db:
+    image: postgis/postgis
+    container_name: redace_db
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/PostGIS_volume:/var/lib/postgresql/data
+    networks:
+      redace_network:
+        ipv4_address: 172.16.239.20
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Django生成コンテナ
+  django:
+    build:
+      context: ./redace_django
+    container_name: redace_django
+    command: python manage.py runserver 0.0.0.0:7000
+    volumes:
+      - ./redace_django:/app
+    ports:
+      - "7001:7000"
+    depends_on:
+      - db
+      - mapserver
+      - terrainserver
+    env_file:
+      - ./.env
+    networks:
+      redace_network:
+        ipv4_address: 172.16.239.21
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - OPTIONS="-c search_path=django,public"
+
+  # Jupyter生成コンテナ
+  jupyter:
+    build:
+      context: ./redace_jupyter
+    container_name: redace_jupyter
+    volumes:
+      - ./redace_jupyter:/app
+      - ./redace_jupyter/data:/data
+    ports:
+      - "7010:7010"
+    depends_on:
+      - db
+      - django
+    env_file:
+      - ./.env
+    networks:
+      redace_network:
+        ipv4_address: 172.16.239.22
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_OPTIONS="-c search_path=jupyterhub,public"
+
+  # CesiumJS 火星レイヤー生成コンテナ
+  mapserver:
+    image: redace1/mapserver:5.0
+    container_name: redace_mapserver
+    volumes:
+      - ./mapserver:/maps
+    depends_on:
+      - db
+    expose:
+      - "80"
+    networks:
+      redace_network:
+        ipv4_address: 172.16.239.19
+
+  # CessiumJS 3D地形生成コンテナ
+  terrainserver:
+    image: redace1/terrainserver:5.0
+    container_name: redace_terrainserver
+    environment:
+      - SERVE_STATIC=0
+    volumes:
+      - /terrain/tilesets/terrain:/data/tilesets/terrain
+    expose:
+      - "8000"
+    networks:
+      redace_network:
+        ipv4_address: 172.16.239.25
+
+
+
+networks:
+  redace_network:
+    name: redace_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.239.0/25
+
+volumes:
+  pgdata:
