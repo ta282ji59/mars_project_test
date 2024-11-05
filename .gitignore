@@ -1,9 +1,9 @@
 db
-
-./redace_django/accounts/__pycache__/*
+redace_django/collect_static/
 
 .env
 *.txt
 ?.json
 .DS_Store
 *.pyc
+
