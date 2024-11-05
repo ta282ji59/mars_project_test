@@ -10,7 +10,7 @@ services:
     volumes:
       - ./redace_nginx/conf.d:/etc/nginx/conf.d
       - ./redace_nginx/uwsgi_params:/etc/nginx/uwsgi_params
-      # -
+      - ./mars_gis_django/collect_static:/collect_static
     depends_on:
       - django
       - jupyter
