@@ -1,6 +1,6 @@
 db
 
-
+./redace_django/accounts/__pycache__/*
 
 .env
 *.txt

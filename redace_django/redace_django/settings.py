@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     
     # 新規apps
     'accounts',
+    # 'map3d',
+    # 'spectra',
 ]
 
 MIDDLEWARE = [

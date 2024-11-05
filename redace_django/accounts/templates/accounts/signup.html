@@ -1,4 +1,5 @@
 <h2>Sign Up</h2>
+Already have an account? Then please <a href="{% url 'login' %}">sign in</a>.
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
@@ -7,4 +8,4 @@
 {% for message in messages %}
     <p>{{ message }}</p>
 {% endfor %}
-<a href="{% url 'login' %}">login</a>
+

@@ -47,6 +47,7 @@ services:
     command: python manage.py runserver 0.0.0.0:7000
     volumes:
       - ./redace_django:/app
+      - ./redace_jupyter/data:/data
     ports:
       - "7001:7000"
     depends_on:
