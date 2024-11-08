@@ -18,7 +18,7 @@ urlpatterns = [
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('userdata/', userdata, name='userdata'), # c.GenericOAuthenticator.userdata_url = 'http://192.168.1.53:7001/userdata/'
     path('accounts/', include('accounts.urls')),
-    # path('map3d/',include('map3d.urls')),
+    path('map3d/',include('map3d.urls')),
     # path('spectra/', include('spectra.urls')),
     # path('api/',include('spectra.urls_api')),
 ]

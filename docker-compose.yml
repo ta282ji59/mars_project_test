@@ -1,22 +1,19 @@
 services:
   # Nginx生成コンテナ
   nginx:
-    build:
-      context: ./redace_nginx
+    image: redace1/nginx:5.0
     container_name: redace_nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - "88:80"
     volumes:
-      - ./redace_nginx/conf.d:/etc/nginx/conf.d
-      - ./redace_nginx/uwsgi_params:/etc/nginx/uwsgi_params
-      - ./mars_gis_django/collect_static:/collect_static
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params
+      - ./redace_django/collect_static:/collect_static
     depends_on:
       - django
-      - jupyter
     networks:
       redace_network:
-        ipv4_address: 172.16.239.23
+        ipv4_address: 172.16.238.6
 
   # PostGISデータベース生成コンテナ
   db:
@@ -30,9 +27,10 @@ services:
       - "5432:5432"
     volumes:
       - ./db/PostGIS_volume:/var/lib/postgresql/data
+      # - ./csv:/csv
     networks:
       redace_network:
-        ipv4_address: 172.16.239.20
+        ipv4_address: 172.16.238.5
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
@@ -58,7 +56,7 @@ services:
       - ./.env
     networks:
       redace_network:
-        ipv4_address: 172.16.239.21
+        ipv4_address: 172.16.238.24
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
@@ -81,7 +79,7 @@ services:
       - ./.env
     networks:
       redace_network:
-        ipv4_address: 172.16.239.22
+        ipv4_address: 172.16.238.10
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
@@ -99,7 +97,7 @@ services:
       - "80"
     networks:
       redace_network:
-        ipv4_address: 172.16.239.19
+        ipv4_address: 172.16.238.3
 
   # CessiumJS 3D地形生成コンテナ
   terrainserver:
@@ -113,7 +111,7 @@ services:
       - "8000"
     networks:
       redace_network:
-        ipv4_address: 172.16.239.25
+        ipv4_address: 172.16.238.4
 
 
 
@@ -124,7 +122,7 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.16.239.0/25
+        - subnet: 172.16.238.0/24
 
 volumes:
   pgdata:

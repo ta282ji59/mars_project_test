@@ -299,73 +299,11 @@ function init_map() {
             })
         );
 
-        // addBaseLayerOption(
-        //     'TEST_WMTS',
-        //     new Cesium.WebMapTileServiceImageryProvider({
-        //         //url: "https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/mars/mars_simp_cyl.map",
-        //         //'https://gibs.earthdata.nasa.gov/wmts/epsg4326/best/AMSR2_Snow_Water_Equivalent/default/{Time}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png'
-        //         url:"http://192.168.1.14:9000/wmts/viking_mdim2.1/{TileMatrix}/{TileRow}/{TileCol}.png",
-        //         //layers: 'viking_mdim2.1',
-
-        //         proxy: new Cesium.DefaultProxy('/proxy'),
-        //         parameters: {
-        //             format: 'image/png',
-        //         }
-        //     }));
-        // addBaseLayerOption(
-        //     'USGSShadedReliefOnly',
-        //     new Cesium.WebMapTileServiceImageryProvider({
-        //     url : 'http://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/WMTS/tile/1.0.0/USGSShadedReliefOnly/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg',
-        //     layer : 'USGSShadedReliefOnly',
-        //     style : 'default',
-        //     format : 'image/jpeg',
-        //     tileMatrixSetID : 'default028mm',
-        //     maximumLevel: 19,
-        //     credit : new Cesium.Credit({ text : 'U. S. Geological Survey' })
-        // }));
-        // addBaseLayerOption(
-        //     'GENERIC',
-        //     new Cesium.WebMapServiceImageryProvider({
-        //         url: "https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/generic/generic_simp_cyl.map",
-        //         layers: 'GENERIC',
-        //         proxy: new Cesium.DefaultProxy('/proxy'),
-        //         parameters: {
-        //             format: 'image/png',
-        //         }
-        //     }));
-
-        //    addBaseLayerOption(
-        // 'GENERIC',
-        // new Cesium.WebMapServiceImageryProvider({
-        //     url: "https://planetarymaps.usgs.gov/cgi-bin/mapserv?map=/maps/generic/generic_simp_cyl.map",
-        //     layers: 'GENERIC',
-        //     proxy: new Cesium.DefaultProxy('/proxy'),
-        //     parameters: {
-        //         format: 'image/png',
-        //     }
-        // }));
-        // addAdditionalLayerOption(
-        //     'line',
-        //     new Cesium.WebMapServiceImageryProvider({
-        //         url: "http://localhost8080/?map=/usr/share/mapserver/examples/critesline.map",
-        //         layers: 'line',
-        //         enablePickFeatures: false,
-        //         proxy: new Cesium.DefaultProxy('/proxy'),
-        //         parameters: {
-        //             format: 'png',
-        //             transparent: 'true',
-        //         }
-        //     }), 1.0, false);
-        // addAdditionalLayerOption(
-        //     'Saved_Point',//Red Ace postGIS at docker network
-        //     // loadgeojson(record_json['geojson']),
-        //     loadgeojson(geojson),
-        //     0.6, false);
-
         addAdditionalLayerOption(
             'CRISM', //Red Ace postGIS at docker network
             new Cesium.WebMapServiceImageryProvider({
                 url: `${Network_mapserver}/crism.map`,
+                // url: `http://192.168.1.53:88/redace_map/?map=/maps/crism.map`,
                 //url: "http://192.168.1.14/redace_map/?map=/maps/crism.map",
                 layers: 'crism',
                 proxy: new Cesium.DefaultProxy('/proxy'),

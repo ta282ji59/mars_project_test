@@ -512,15 +512,8 @@
 <script src='{% static "map3d/js_file/spectral_box.js" %}'></script>
 
 
-<script>
-  var DjangoURL = {
-    get_spectra_axios: "{% url 'spectra:get_spectra_axios' %}",
-    record_spectra_user_id: "{{ record_spectra.user.id }}",
-    record_spectra_user: "{{ record_spectra.user }}",
-    change_permission: "{% url 'spectra:change_permission' %}",
-    description_update: "{% url 'spectra:description_update' %}",
-    export_from_list: "{% url 'spectra:export_from_list' %}",
-    delete_from_list: "{% url 'spectra:delete_from_list' %}",
-  }
+<script type="text/javascript">
+  var DjangoURL = "{{ request.scheme }}://{{ request.get_host }}";
 </script>
-<script src='{% static "map3d/js_file/SpectralList.js" %}'></script>
+
+<!-- <script src='{% static "map3d/js_file/SpectralList.js" %}'></script> -->
