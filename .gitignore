@@ -1,9 +1,9 @@
 db
 redace_django/collect_static/
-# redace_django/map3d/static/node_modules
+**/__pycache__/
 
 .env
-*.txt
+?.txt
 ?.json
 .DS_Store
 *.pyc

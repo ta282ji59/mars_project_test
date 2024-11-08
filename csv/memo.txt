@@ -1,0 +1,1 @@
+crism.csvとthemis.csvは碓井さんまでのRed Ace開発者の開発時点のDBを使用
